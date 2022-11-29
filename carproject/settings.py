@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'd^ivuzalj#@@_oos%3$mlq)j2iru$kwvm@#(@%gb%-oh2=bp&1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -64,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'carproject.urls'
@@ -90,15 +92,18 @@ WSGI_APPLICATION = 'carproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'carproject_db',
-        'USER': 'postgres',
-        'PASSWORD': '6589@saiRam',
-        'HOST': 'localhost',
-    }
-}
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'carproject_db',
+#        'USER': 'postgres',
+#        'PASSWORD': '6589@saiRam',
+#        'HOST': 'localhost',
+#    }
+#}
+
+DATABASES = {'default': dj_database_url.config(default='postgres://postgres:6589@saiRam@localhost/carproject_db')}
 
 
 # Password validation
@@ -165,3 +170,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'rohankhatik8@gmail.com'
 EMAIL_HOST_PASSWORD = 'uxjxvfkusfspauba'
 EMAIL_USE_TLS = True
+
+# Whitenoise settings
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
